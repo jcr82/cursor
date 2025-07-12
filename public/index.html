@@ -3,45 +3,235 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Chat Assistant</title>
+    <title>Personalized AI Chatbot</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <header class="header">
-            <h1>AI Chat Assistant</h1>
-            <p>Chat with an intelligent AI assistance to get to know about Juan!</p>
-        </header>
-        
-        <div class="chat-container">
-            <div class="chat-messages" id="chatMessages">
-                <div class="message ai-message">
-                    <div class="message-content">
-                        <strong>AI Assistant:</strong> Hello! I'm here to help you with any questions you have about Juan!. What would you like to talk about?
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <h1>Personalized AI Chatbot</h1>
+                <p>Chat with an AI that knows about you personally</p>
+                <div class="status-indicators">
+                    <div class="status-item" id="aiStatus">
+                        <span class="status-dot"></span>
+                        <span class="status-text">AI Status</span>
                     </div>
-                    <div class="message-time"></div>
+                    <div class="status-item" id="dataStatus">
+                        <span class="status-dot"></span>
+                        <span class="status-text">Personal Data</span>
+                    </div>
                 </div>
             </div>
-            
-            <div class="chat-input-container">
-                <div class="input-wrapper">
-                    <input type="text" id="messageInput" placeholder="Type your message here..." autocomplete="off">
-                    <button id="sendButton" class="send-btn">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="m22 2-7 20-4-9-9-4 20-7z"/>
-                        </svg>
-                    </button>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="app-nav">
+            <button class="nav-btn active" data-tab="chat">💬 Chat</button>
+            <button class="nav-btn" data-tab="profile">👤 Personal Data</button>
+            <button class="nav-btn" data-tab="settings">⚙️ Settings</button>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="app-main">
+            <!-- Chat Tab -->
+            <div class="tab-content active" id="chat-tab">
+                <div class="chat-container">
+                    <div class="chat-header">
+                        <h3>AI Assistant</h3>
+                        <div class="chat-controls">
+                            <button id="clearChatBtn" class="btn btn-secondary">Clear Chat</button>
+                            <button id="contextToggle" class="btn btn-toggle active">
+                                <span class="toggle-text">Personal Context: ON</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="message ai-message">
+                            <div class="message-content">
+                                <strong>AI Assistant:</strong> Hello! I'm your personalized AI assistant. Ask me anything about yourself, and I'll use your personal data to provide specific answers. What would you like to know?
+                            </div>
+                            <div class="message-time"></div>
+                            <div class="message-meta">
+                                <span class="context-indicator" title="Using personal context">🧠</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="chat-input-container">
+                        <div class="input-wrapper">
+                            <input type="text" id="messageInput" placeholder="Ask me about yourself..." autocomplete="off">
+                            <button id="sendButton" class="send-btn">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="m22 2-7 20-4-9-9-4 20-7z"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="input-suggestions" id="inputSuggestions">
+                            <button class="suggestion-btn">What are my recent projects?</button>
+                            <button class="suggestion-btn">What skills do I have?</button>
+                            <button class="suggestion-btn">Tell me about my experience</button>
+                            <button class="suggestion-btn">What are my interests?</button>
+                        </div>
+                    </div>
                 </div>
+            </div>
+
+            <!-- Personal Data Tab -->
+            <div class="tab-content" id="profile-tab">
+                <div class="profile-container">
+                    <div class="profile-header">
+                        <h3>Personal Information</h3>
+                        <div class="profile-actions">
+                            <button id="loadDataBtn" class="btn btn-secondary">Load Data</button>
+                            <button id="saveDataBtn" class="btn btn-primary">Save Changes</button>
+                        </div>
+                    </div>
+
+                    <div class="profile-sections">
+                        <!-- Biography Section -->
+                        <div class="section-card" id="biography-section">
+                            <div class="section-header">
+                                <h4>📝 Biography</h4>
+                                <button class="section-toggle">▼</button>
+                            </div>
+                            <div class="section-content">
+                                <div class="form-group">
+                                    <label for="bio-name">Name:</label>
+                                    <input type="text" id="bio-name" placeholder="Your full name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="bio-title">Title:</label>
+                                    <input type="text" id="bio-title" placeholder="Your professional title">
+                                </div>
+                                <div class="form-group">
+                                    <label for="bio-description">Description:</label>
+                                    <textarea id="bio-description" placeholder="Describe yourself..." rows="3"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="bio-location">Location:</label>
+                                    <input type="text" id="bio-location" placeholder="Your location">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Skills Section -->
+                        <div class="section-card" id="skills-section">
+                            <div class="section-header">
+                                <h4>🛠️ Skills</h4>
+                                <button class="section-toggle">▼</button>
+                            </div>
+                            <div class="section-content">
+                                <div class="skills-list" id="skillsList">
+                                    <!-- Skills will be dynamically loaded here -->
+                                </div>
+                                <button id="addSkillBtn" class="btn btn-secondary">+ Add Skill</button>
+                            </div>
+                        </div>
+
+                        <!-- Projects Section -->
+                        <div class="section-card" id="projects-section">
+                            <div class="section-header">
+                                <h4>🚀 Projects</h4>
+                                <button class="section-toggle">▼</button>
+                            </div>
+                            <div class="section-content">
+                                <div class="projects-list" id="projectsList">
+                                    <!-- Projects will be dynamically loaded here -->
+                                </div>
+                                <button id="addProjectBtn" class="btn btn-secondary">+ Add Project</button>
+                            </div>
+                        </div>
+
+                        <!-- Experience Section -->
+                        <div class="section-card" id="experience-section">
+                            <div class="section-header">
+                                <h4>💼 Experience</h4>
+                                <button class="section-toggle">▼</button>
+                            </div>
+                            <div class="section-content">
+                                <div class="experience-list" id="experienceList">
+                                    <!-- Experience will be dynamically loaded here -->
+                                </div>
+                                <button id="addExperienceBtn" class="btn btn-secondary">+ Add Experience</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Tab -->
+            <div class="tab-content" id="settings-tab">
+                <div class="settings-container">
+                    <div class="settings-header">
+                        <h3>Settings</h3>
+                    </div>
+
+                    <div class="settings-sections">
+                        <div class="section-card">
+                            <div class="section-header">
+                                <h4>🔧 API Configuration</h4>
+                            </div>
+                            <div class="section-content">
+                                <div class="form-group">
+                                    <label for="api-key">Personal Data API Key:</label>
+                                    <input type="password" id="api-key" placeholder="Enter your API key (optional)">
+                                    <small>Required only if server has authentication enabled</small>
+                                </div>
+                                <button id="testApiBtn" class="btn btn-secondary">Test API Connection</button>
+                            </div>
+                        </div>
+
+                        <div class="section-card">
+                            <div class="section-header">
+                                <h4>💬 Chat Settings</h4>
+                            </div>
+                            <div class="section-content">
+                                <div class="form-group">
+                                    <label>
+                                        <input type="checkbox" id="autoContext" checked>
+                                        Automatically include personal context in responses
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label>
+                                        <input type="checkbox" id="showDataUsed" checked>
+                                        Show which personal data was used in responses
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="section-card">
+                            <div class="section-header">
+                                <h4>📊 System Information</h4>
+                            </div>
+                            <div class="section-content">
+                                <div id="systemInfo">
+                                    <p>Loading system information...</p>
+                                </div>
+                                <button id="refreshInfoBtn" class="btn btn-secondary">Refresh</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Loading Overlay -->
+        <div class="loading-overlay" id="loadingOverlay">
+            <div class="loading-content">
+                <div class="loading-spinner"></div>
+                <p id="loadingText">Processing...</p>
             </div>
         </div>
-        
-        <div class="loading" id="loading">
-            <div class="loading-dots">
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-            </div>
+
+        <!-- Notification System -->
+        <div class="notification-container" id="notificationContainer">
+            <!-- Notifications will be dynamically added here -->
         </div>
     </div>
 

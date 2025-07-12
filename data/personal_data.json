@@ -1,0 +1,22 @@
+{
+  "biography": {
+    "name": "Your Name",
+    "title": "Your Title",
+    "description": "Add your personal description here",
+    "location": "Your Location"
+  },
+  "skills": [],
+  "projects": [],
+  "preferences": {
+    "interests": [],
+    "goals": []
+  },
+  "socialLinks": [],
+  "experience": [],
+  "education": [],
+  "metadata": {
+    "createdAt": "2025-07-12T23:21:41.760Z",
+    "updatedAt": "2025-07-12T23:21:41.760Z",
+    "version": "1.0.0"
+  }
+}
